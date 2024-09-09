@@ -21,13 +21,15 @@ function comprimeJavascript() {
 }
 
 function comprimeImagens() {
-    return gulp.src('./source/images/subscribe-icon')
+    return gulp.src('./source/images/*')
         .pipe(imagemin())
         .pipe(gulp.dest('./build/images'));
 }
 
 exports.sass = compilaSass;
-exports.watch = function() {
+exports.default = function() {
     gulp.watch('./source/styles/*.scss', {ignoreInitial: false}, gulp.series(compilaSass));
+    gulp.watch('./source/scripts/*.js', {ignoreInitial: false}, gulp.series(comprimeJavascript));
+    gulp.watch('./source/images/*', {ignoreInitial: false}, gulp.series(comprimeImagens));
 }
 exports.images = comprimeJavascript;
